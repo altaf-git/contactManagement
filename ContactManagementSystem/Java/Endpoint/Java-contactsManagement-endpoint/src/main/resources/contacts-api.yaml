@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: Contacts Management API
+  version: 1.0.0
+  description: API for managing contacts
+
+servers:
+  - url: http://localhost:18082
+
+paths:
+  /contacts/v1/save:
+    post:
+      summary: Save a contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactEntity'
+
+
+  /contacts/v1/delete:
+    delete:
+      summary: Delete a contact
+      parameters:
+        - name: phoneNumber
+          in: query
+          description: Phone number of the contact to be deleted
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactEntity'
+        '404':
+          description: Contact not found
+
+  /contacts/v1/find/firstName:
+    get:
+      summary: Find contacts by first name
+      parameters:
+        - name: firstName
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactEntity'
+
+  /contacts/v1/find/lastName:
+    get:
+      summary: Find contacts by last name
+      parameters:
+        - name: lastName
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactEntity'
+
+  /contacts/v1/find/email:
+    get:
+      summary: Find a contact by email
+      parameters:
+        - name: email
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactEntity'
+
+  /contacts/v1/update/byEmail:
+    put:
+      summary: Update a contact by email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /contacts/v1/update/byNumber:
+    put:
+      summary: Update a contact by phone number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /contacts/v1/echo:
+    get:
+      summary: Health check endpoint
+      responses:
+        '200':
+          description: Successful operation
+
+components:
+  schemas:
+    ContactEntity:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+    SaveRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string

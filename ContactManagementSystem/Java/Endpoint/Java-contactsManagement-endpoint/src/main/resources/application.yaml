@@ -1,0 +1,8 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/template1
+    username: altaf
+    password: altaf
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true

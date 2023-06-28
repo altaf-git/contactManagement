@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Liquibase Data Migration
+  flyway:
+    enabled: false
+  liquibase:
+    enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/template1
+    username: altaf
+    password: altaf
